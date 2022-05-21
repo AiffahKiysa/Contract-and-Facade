@@ -139,13 +139,13 @@ Untuk hasil view nya adalah seperti berikut:
 
 ### Langkah kedelapan
 
-Cara lain untuk mencobanya adalah menggunakan tinker:
+Cara lain untuk mencobanya adalah menggunakan tinker dengan menjalankan perintah berikut di terminal:
 
 ```
 php artisan tinker
 ```
 
-Kemudian memanggil fungsi ```stundentName()``` yang sudah kita buat pada class ```StudentFacade``` dengan perintah:
+Kemudian memanggil fungsi ```stundentName()``` yang telah dibuat pada class ```StudentFacade``` dengan perintah:
 
 ```
 StudentFacade::studentName()
