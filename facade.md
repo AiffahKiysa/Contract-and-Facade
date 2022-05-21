@@ -12,6 +12,120 @@ Facade pada Laravel menyediakan sebuah static interface ke kelas-kelas yang ters
 
 ## Konsep
 
+Penggunaan facade pada Laravel cukup sering digunakan. Sebagai contoh, untuk routing pada Laravel biasanya menggunakan code berikut:
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+	return  view('welcome');
+});
+```
+
+Route merupakan salah satu bentuk dari facade di Laravel. Selain route, terdapat banyak facade lain di Laravel. Semua Facade yang ada di Laravel secara default terdapat di direktori ``` vendor/laravel/framework/src/Illuminate/Support/Facades ```:
+
+![1653137136458](https://user-images.githubusercontent.com/74708771/169655876-f81a7c03-29d1-4b84-9285-c0189f79b802.jpg)
+
+Semua facade di Laravel terdefinisikan dengan namespace ```Illuminate\Support\Facades```. Untuk menggunakannya cukup mudah seperti contoh berikut:
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/cache', function () {
+	return Cache::get('key');
+});
+```
+
+Isi code dari facade pada laravel kurang lebihnya sama. Sebagai contoh code pada file ```DB.php``` adalah seperti berikut:
+
+```php
+<?php
+
+namespace Illuminate\Support\Facades;
+
+class DB extends Facade
+{
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'db';
+    }
+}
+```
+
+Terlihat bahwa ```DB``` adalah class yang meng-extend base class ```Facade```. Isinya adalah satu method protected yaitu ```getFacadeAccessor()```,yang mengembalikan string ```db```. ```db``` yang merupakan nama dari facade ini dikembalikan agar facade dapat diakses di mana pun dalam project laravel.
+
+Facade pada Laravel juga menyediakan testing methods. Sebagai contoh untuk menguji apakah method ```Cache::get``` sudah dipanggil dengan argumen yang diharapkan:
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/cache', function () {
+    return Cache::get('key');
+});
+```
+
+Untuk mengujinya dapat menggunakan test script seperti berikut:
+
+```php
+<?php
+
+use Illuminate\Support\Facades\Cache;
+
+/**
+ * A basic functional test example.
+ *
+ * @return void
+ */
+public function testBasicExample()
+{
+    Cache::shouldReceive('get')
+         ->with('key')
+         ->andReturn('value');
+
+    $response = $this->get('/cache');
+
+    $response->assertSee('value');
+}
+```
+
+Facade dipanggil dengan menggunakan double colons (::) karena merupakan static methods. Pada static methods, tidak diperlukan inisiasi sebuah class untuk mereferensi class tersebut, sedangkan pada non-static methods, harus melakukan inisiasi class agar dapat di-refer.
+
+Berikut adalah contoh dari static methods dan non-static methods pada PHP:
+```php
+<?php
+
+//static methods
+class backend {
+	private const language = "php";
+	public static function language() {
+    	echo self::language;
+  	}
+}
+backend::language();  //php
+
+//non-static methods
+class backend{
+	public function language($name){
+		echo $name;
+	}
+}
+$test = new backend; //inisiasi instance dari class
+$test->language('php'); //php
+```
+
 ## Langkah-langkah tutorial
 
 ### Langkah pertama
@@ -34,6 +148,7 @@ Isi file ```app/Classes/Student.php``` dengan source code berikut:
 
 ```php
 <?php
+
 namespace App\Classes;
 
 class Student {
@@ -49,6 +164,7 @@ Isi file ```app/Classes/Facade/StudentFacade.php``` dengan source code berikut:
 
 ```php
 <?php
+
 namespace App\Classes\Facade;
 use Illuminate\Support\Facades\Facade;
 
@@ -71,6 +187,7 @@ Kemudian, isi file ```app/Providers/StudentProvider.php``` yang telah dibuat den
 
 ```php
 <?php
+
 namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
