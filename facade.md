@@ -4,6 +4,12 @@
 
 ## Penjelasan
 
+![1445024592facades-1024x549](https://user-images.githubusercontent.com/74708771/169654739-5d64f4a9-8a21-4915-b79d-dc14b7b000ee.jpg)
+
+Facade adalah sebuah fitur dari Laravel yang mengimplementasikan Facade Pattern. Facade Pattern adalah salah satu *software design pattern* pada *object oriented programming* (OOP) yang membungkus suatu library yang kompleks agar menjadi sebuah interface yang lebih **simpel dan mudah untuk dibaca**. Pada facade pattern, terdapat sebuah class yang disebut facade class yang akan mengakses class lain. Class pengguna (client) tidak akan mengakses class yang di-'facade' secara langsung, melainkan mengaksesnya melalui facade class. Tujuan dari facade pattern ini adalah untuk menyembunyikan kerumitan.
+
+Facade pada Laravel menyediakan sebuah static interface ke kelas-kelas yang tersedia pada service container dari aplikasi yang dibuat. Facade pada Laravel dapat diasumsikan sebagai cara singkat dan ringkas untuk mengakses sebuah object di container, sekaligus mempermudah keperluan testing (*testability* dan *flexibility*). Ketika menggunakan facade harus berhati-hati agar tidak terjadi ***scope creep***. Karena facade mudah untuk digunakan sehingga memungkinkan untuk class yang dibuat menjadi semakin besar dan menggunakan banyak facade. Sebaiknya ukuran dari class tetap diperhatikan agar scope classs tidak terlalu besar. Jika memang ukuran class sudah terlalu besar, class sebaiknya dipecah menjadi beberapa class yang lebih kecil.
+
 ## Konsep
 
 ## Langkah-langkah tutorial
@@ -61,9 +67,7 @@ Buat provider dengan menjalankan perintah berikut di terminal:
 php artisan make:provider StudentProvider
 ```
 
-### Langkah keempat
-
-Isi file ```app/Providers/StudentProvider.php``` yang telah dibuat dengan source code berikut:
+Kemudian, isi file ```app/Providers/StudentProvider.php``` yang telah dibuat dengan source code berikut:
 
 ```php
 <?php
@@ -135,7 +139,7 @@ Facade telah selesai dibuat dan dapat digunakan dimana saja di project laravel. 
 ```
 Untuk hasil view nya adalah seperti berikut:
 
-![1653138686853](https://user-images.githubusercontent.com/74708771/169653299-9b604fa1-6f43-4543-b2b4-7f20bfaedd77.jpg)
+![1653139982065](https://user-images.githubusercontent.com/74708771/169654904-fa1485ba-7ec7-4c26-b126-94a3fc2f174b.jpg)
 
 ### Langkah kedelapan
 
